@@ -33,7 +33,7 @@ class SkillController extends FOSRestController
 
         $skill = new Skill();
         $skill->setName($name);
-        if($parent)
+        if(isset($parent))
             $skill->setParent($parent);
 
         $em->persist($skill);
