@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity()
@@ -23,6 +24,7 @@ class Skill
     /**
      * @ORM\ManyToOne(targetEntity="Skill", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @JMS\Exclude()
      */
     private $parent;
 
@@ -31,7 +33,21 @@ class Skill
      */
     private $children;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    public function setName(string $name): Skill
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function setParent(Skill $parent): Skill
+    {
+        $this->parent = $parent;
+        return $this;
     }
 }
