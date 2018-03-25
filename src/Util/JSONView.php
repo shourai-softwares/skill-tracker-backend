@@ -28,7 +28,7 @@ class JSONView
     private function createView($json, $status)
     {
         return View::create($json, $status)
-            ->setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
+            ->setHeader('Access-Control-Allow-Origin', getenv('ALLOWED_ORIGIN'))
             ->setHeader('Access-Control-Allow-Headers', 'Content-Type');
     }
 }
