@@ -40,7 +40,7 @@ class Skill
     }
 
 
-    public function setName(string $name): Skill
+    public function setName($name): Skill
     {
         $this->name = $name;
         return $this;
