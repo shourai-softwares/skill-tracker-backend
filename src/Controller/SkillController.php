@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Entity\Skill;
+use App\Output\SkillTree;
 use App\Util\JSONView;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -15,9 +16,24 @@ class SkillController extends FOSRestController
     public function getAllAction(JSONView $view) {
         $d = $this->getDoctrine();
 
-        $skills = $d->getRepository(Skill::class)->findBy(['parent' => null]);
+        $skills = $d->getRepository(Skill::class)->findAll();
 
         return $view->createDataMessage('Listado com sucesso', $skills);
+    }
+
+    /**
+     * @Rest\Get("/skills/tree")
+     */
+    public function getAllTreesAction(JSONView $view) {
+        $d = $this->getDoctrine();
+
+        $skills = $d->getRepository(Skill::class)->findBy(['parent' => null]);
+
+        $skillTrees = [];
+        foreach($skills as $skill)
+            $skillTrees[] = new SkillTree($skill);
+
+        return $view->createDataMessage('Listado com sucesso', $skillTrees);
     }
 
     /**

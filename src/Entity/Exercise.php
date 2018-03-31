@@ -18,7 +18,6 @@ class Exercise
 
     /**
      * @ORM\ManyToOne(targetEntity="Skill", inversedBy="exercises")
-     * @JMS\Exclude()
      */
     private $skill;
 

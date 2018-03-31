@@ -30,6 +30,7 @@ class Skill
 
     /**
      * @ORM\OneToMany(targetEntity="Skill", mappedBy="parent")
+     * @JMS\Exclude()
      */
     private $children;
 
@@ -49,5 +50,10 @@ class Skill
     {
         $this->parent = $parent;
         return $this;
+    }
+
+    public function getChildren(): Array
+    {
+        return $this->children->toArray();
     }
 }
