@@ -42,7 +42,7 @@ class ExerciseController extends FOSRestController
     }
 
     /**
-     * @Rest\Options("/skills/new")
+     * @Rest\Options("/exercises/new")
      */
     public function oAddAction(JSONView $view) {
         return $view->createMessage('ok');
