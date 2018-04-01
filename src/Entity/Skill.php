@@ -34,9 +34,16 @@ class Skill
      */
     private $children;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Exercise", mappedBy="skill")
+     * @JMS\Exclude()
+     */
+    private $exercises;
+
     public function __construct()
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->exercise = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
