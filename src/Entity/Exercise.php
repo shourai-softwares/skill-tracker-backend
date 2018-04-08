@@ -32,9 +32,19 @@ class Exercise
         return $this;
     }
 
+    public function getSkill(): Skill
+    {
+        return $this->skill;
+    }
+
     public function setIntensity(int $intensity): Exercise
     {
         $this->intensity = $intensity;
         return $this;
+    }
+
+    public function getIntensity(): int
+    {
+        return $this->intensity;
     }
 }

@@ -40,14 +40,20 @@ class Skill
      */
     private $exercises;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Level", mappedBy="skill")
+     * @JMS\Exclude()
+     */
+    private $level;
+
     public function __construct()
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->exercise = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->exercises = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
-    public function setName($name): Skill
+    public function setName(string $name): Skill
     {
         $this->name = $name;
         return $this;
@@ -57,6 +63,17 @@ class Skill
     {
         $this->parent = $parent;
         return $this;
+    }
+
+    public function setLevel(Level $level): Skill
+    {
+        $this->level = $level;
+        return $this;
+    }
+
+    public function getLevel(): Level
+    {
+        return $this->level;
     }
 
     public function getChildren(): Array

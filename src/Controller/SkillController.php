@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Builder\SkillBuilder;
 use App\Entity\Skill;
 use App\Output\SkillTree;
 use App\Util\JSONView;
@@ -44,14 +45,19 @@ class SkillController extends FOSRestController
 
         $name = $request->request->get('name');
         $parentId = $request->request->get('parent');
+        $parent = null;
         if($parentId)
             $parent = $em->getRepository(Skill::class)->findOneById($parentId);
 
-        $skill = new Skill();
-        $skill->setName($name);
-        if(isset($parent))
+        $skill = (new SkillBuilder())
+            ->setName($name);
+
+        if(!is_null($parent))
             $skill->setParent($parent);
 
+        $skill = $skill->build();
+
+        $em->persist($skill->getLevel());
         $em->persist($skill);
         $em->flush();
 

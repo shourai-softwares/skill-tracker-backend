@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\Exercise;
 use App\Entity\Skill;
+use App\Service\LevelCalculatorService;
 use App\Util\JSONView;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -24,7 +25,7 @@ class ExerciseController extends FOSRestController
     /**
      * @Rest\Post("/exercises/new")
      */
-    public function addAction(JSONView $view, Request $request) {
+    public function addAction(JSONView $view, LevelCalculatorService $calc, Request $request) {
         $em = $this->getDoctrine()->getManager();
 
         $intensity = $request->request->get('intensity');
@@ -34,6 +35,8 @@ class ExerciseController extends FOSRestController
         $exercise = (new Exercise())
             ->setIntensity($intensity)
             ->setSkill($skill);
+
+        $calc->updateLevelsWith($exercise);
 
         $em->persist($exercise);
         $em->flush();
