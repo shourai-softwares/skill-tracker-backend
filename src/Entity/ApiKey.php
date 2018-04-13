@@ -11,13 +11,6 @@ class ApiKey
 {
 	/**
 	 * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-	 * @Serializer\Exclude()
-	 */
-	private $id;
-
-	/**
 	 * @ORM\Column(type="string", length=255, unique=true)
 	 */
 	private $key;
@@ -42,11 +35,6 @@ class ApiKey
 	 * @ORM\Column(name="created_at", type="datetime")
 	 */
 	private $createdAt;
-
-	public function getId(): int
-	{
-		return $this->id;
-	}
 
 	public function setKey(string $key): ApiKey
 	{
