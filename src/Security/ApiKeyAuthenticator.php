@@ -16,7 +16,10 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
 {
 	public function createToken(Request $request, $providerKey)
 	{
-		$apiKey = $request->headers->get('x-api-key') ?? 'invalid-key';
+		$apiKey = $request->headers->get('x-api-key');
+
+        if(!$apiKey)
+            return null;
 
 		return new PreAuthenticatedToken(
 			'anon.',
@@ -62,7 +65,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
 
 	public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
 	{
-		return new Response("Token Error", 403);
+		return new Response($exception->getMessage(), 403);
 	}
 }
 

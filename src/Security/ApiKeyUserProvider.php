@@ -18,14 +18,14 @@ class ApiKeyUserProvider implements UserProviderInterface
 
     public function getUsernameForApiKey($keyValue)
     {
-        $apiKey = $this->doctrine->getRepository(ApiKey::class)->findOneBy(['key' => $keyValue]);
+        $apiKey = $this->doctrine->getRepository(ApiKey::class)->findOneByKey($keyValue);
         if(!$apiKey)
             return '';
         if(!is_null($apiKey->getLogoutDate()))
             return '';
         if($apiKey->getExpirationDate() < new \DateTime())
             return '';
-        return $apiKey->getUser()->getUserEmail();
+        return $apiKey->getUser()->getEmail();
     }
 
     public function loadUserByUsername($email)

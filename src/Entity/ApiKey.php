@@ -11,7 +11,7 @@ class ApiKey
 {
 	/**
 	 * @ORM\Id
-	 * @ORM\Column(type="string", length=191, unique=true)
+	 * @ORM\Column(name="api_key", type="string", length=191, unique=true)
 	 */
 	private $key;
 
